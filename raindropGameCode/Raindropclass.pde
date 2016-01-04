@@ -3,24 +3,28 @@ class Raindrop {
   PVector loc, vel, acc;
 
   Raindrop(float x, float y) {
-    diam = 50;
-    loc = new PVector(random(diam,width-diam), -100);
-    vel = new PVector(0,0);
-    acc = new PVector(0,.5);
+    diam = 30;
+    loc = new PVector(random(width),random(height));
+    vel = new PVector(random(-3,3),random(2,6));
   }
 
   void display() {
-    ellipse(loc.x, loc.y, diam, diam);
+    fill(255);
+    ellipse(loc.x, loc.y, diam/random(1,1.5), diam);
   }
   void fall() {
     loc.add(vel);
-    vel.add(acc);
   }
   void reset() {
-    if (loc.y >= height) {
-      loc.y = -100;
-      vel.set(0,0);
+    loc.y = 0;
+    loc.x = random(width);
+    
+  }
+  boolean isInContactWith(Catcher c) {
+    if (loc.dist(c.loc)/2 < diam/4 + c.diam/4) {
+      return true;
+    } else {
+      return false;
     }
- 
   }
 }
